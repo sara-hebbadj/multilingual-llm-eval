@@ -1,0 +1,6 @@
+# Prices in US$ per million tokens, copied by hand from https://openrouter.ai/models on the day of the run.
+# Add one line per model you run (and the judge). Lines starting with # are ignored.
+# A model missing from this file gets a deliberately high fallback price (15 / 75), so the
+# cost guard stops large runs until the real price is filled in.
+# Example line (replace with real IDs and prices):  provider/model-name,0.50,1.50
+model_id,input_usd_per_mtok,output_usd_per_mtok

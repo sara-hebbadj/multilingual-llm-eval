@@ -1,0 +1,23 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# Dry-run output is fake and reproducible: never commit it
+evals/dry_run/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

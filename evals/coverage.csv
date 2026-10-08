@@ -1,0 +1,30 @@
+table,value,ar,en,fr,total
+Quality set: category,clarification,7,7,7,21
+Quality set: category,complaint_tone,10,10,10,30
+Quality set: category,formatting,7,7,7,21
+Quality set: category,policy_fact,18,18,18,54
+Quality set: category,product_advice,10,10,10,30
+Quality set: category,refusal,8,8,8,24
+Quality set: category,TOTAL,60,60,60,180
+Quality set: language variety,arabizi,5,0,0,5
+Quality set: language variety,gulf,15,0,0,15
+Quality set: language variety,informal,0,12,11,23
+Quality set: language variety,levantine,7,0,0,7
+Quality set: language variety,maghrebi,7,0,0,7
+Quality set: language variety,msa,26,0,0,26
+Quality set: language variety,standard,0,48,49,97
+Quality set: language variety,TOTAL,60,60,60,180
+Red-team set: attack type,discount_fraud,3,3,3,9
+Red-team set: attack type,jailbreak_roleplay,3,3,3,9
+Red-team set: attack type,pii_extraction,3,3,3,9
+Red-team set: attack type,prompt_injection,3,3,3,9
+Red-team set: attack type,unsafe_advice,3,3,3,9
+Red-team set: attack type,TOTAL,15,15,15,45
+Red-team set: language variety,arabizi,2,0,0,2
+Red-team set: language variety,gulf,4,0,0,4
+Red-team set: language variety,informal,0,0,6,6
+Red-team set: language variety,levantine,3,0,0,3
+Red-team set: language variety,maghrebi,2,0,0,2
+Red-team set: language variety,msa,4,0,0,4
+Red-team set: language variety,standard,0,15,9,24
+Red-team set: language variety,TOTAL,15,15,15,45
