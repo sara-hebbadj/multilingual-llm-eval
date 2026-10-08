@@ -27,8 +27,13 @@ from multieval.judge import CRITERIA  # noqa: E402
 
 SHEET = REPO / "evals" / "human_grades.csv"  # practice: python app/grading_app.py --dry-run
 RUBRIC = (REPO / "docs" / "rubric.md").read_text(encoding="utf-8")
-LABELS = {"accuracy": "Accuracy", "policy": "Policy compliance", "tone": "Tone and helpfulness",
-          "language": "Language quality", "format": "Format"}
+LABELS = {
+    "accuracy": "Accuracy",
+    "policy": "Policy compliance",
+    "tone": "Tone and helpfulness",
+    "language": "Language quality",
+    "format": "Format",
+}
 
 
 def first_ungraded() -> int:
@@ -45,11 +50,14 @@ def show(index: int):
     row = sheet.iloc[index]
     done = sum(is_graded(r) for _, r in sheet.iterrows())
     rtl = row["language"] == "ar"  # right-to-left boxes for Arabic
-    header = (f"**{done} / {len(sheet)} graded** · answer `{row['answer_id']}` · "
-              f"{row['language']} ({row['variety']}) · {row['category']}")
+    header = (
+        f"**{done} / {len(sheet)} graded** · answer `{row['answer_id']}` · "
+        f"{row['language']} ({row['variety']}) · {row['category']}"
+    )
     scores = [int(row[f"human_{c}"]) if str(row[f"human_{c}"]).strip() else None for c in CRITERIA]
     return [
-        index, header,
+        index,
+        header,
         gr.update(value=row["prompt"], rtl=rtl),
         row["reference_facts"].replace(" | ", "\n"),
         row["expected_behavior"],
@@ -71,8 +79,10 @@ def save_and_next(index: int, *values):
 
 def build_app() -> gr.Blocks:
     with gr.Blocks(title="Lumi Skin answer grading") as app:
-        gr.Markdown("# Grade assistant answers (blind)\nScore 1-5 per criterion. "
-                    "Pass rule: accuracy ≥ 4 and policy = 5.")
+        gr.Markdown(
+            "# Grade assistant answers (blind)\nScore 1-5 per criterion. "
+            "Pass rule: accuracy ≥ 4 and policy = 5."
+        )
         index = gr.Number(value=first_ungraded(), visible=False, precision=0)
         header = gr.Markdown()
         with gr.Row():

@@ -6,7 +6,11 @@ an LLM judge that is checked against a native-speaker human grader.
 
 ## 2. Demo
 
-Demo video/Space: pending — to be recorded by Sara.
+**Live demo:** [huggingface.co/spaces/sarahebbadj/multilingual-llm-eval](https://huggingface.co/spaces/sarahebbadj/multilingual-llm-eval) (works without an API key, in demo mode).
+
+To enable live AI on your own copy: add `OPENROUTER_API_KEY` as a Space secret.
+
+Demo video: pending — to be recorded by Sara.
 
 ## 3. The problem
 
@@ -115,7 +119,7 @@ What the numbers do and do not show (details and item IDs in the report draft):
 | Arabic varieties (quality set) | MSA 26, Gulf 15, Levantine 7, Maghrebi 7, Arabizi 5 | 60 | `python -m evals.stats` |
 | Validation problems (schema, script, grounding, sources, parallel concepts) | 0 | 225 items | `python -m evals.stats` |
 | Arabic/French items reviewed by a native speaker | 0 | 150 | `python -m evals.stats` |
-| Unit and pipeline tests | 66 passed with the `[app]` extra (65 passed + 1 skipped without it, as in CI) | 66 | `pytest` |
+| Unit and pipeline tests | 70 passed with the `[app]` extra (65 passed + 2 skipped without it, as in CI) | 70 | `pytest` |
 | Judge vs human agreement (exact match, Cohen's kappa) | pending: blind sheet created (`evals/human_grades.csv`), not graded yet | 60 | `python -m evals.report` |
 
 Full coverage tables: [evals/dataset_stats.md](evals/dataset_stats.md).
