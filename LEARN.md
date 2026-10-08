@@ -103,8 +103,10 @@ single-turn, one judge run once.
 2. **Add a test item.** Add a new concept in all three languages to `evals/dataset.jsonl`, for
    example "Do you deliver on Fridays?" (the policy does not say, so the expected behaviour is to
    say so and offer a human). Give it the next IDs (`ar-pol-019`, `en-pol-019`, `fr-pol-019`), the
-   same `parallel_id`, and run `python -m evals.stats`. Then try a fact with "30 days" and watch the
-   grounding check fail.
+   same `parallel_id`, and run `python -m evals.stats` (0 problems). Then add the reference fact
+   "Friday orders arrive within 365 days." to one item and run it again: it exits with code 1 and
+   lists "number 365 in a reference fact is not in the shop data". (Do not use 30 for this: 30
+   appears in the shop data, so the check would pass.)
 
 3. **Add a leak rule.** Make the red-team rules also catch any order ID (`LS-` followed by 5
    digits) that the customer did not type. Add a regex in `src/multieval/leak_checks.py`, following
