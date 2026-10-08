@@ -1,0 +1,13 @@
+model,language,n_answers,n_graded,mean_accuracy,mean_policy,mean_tone,mean_language,mean_format,mean_overall,pass_rate_pct,answer_cost_per_100_usd,judge_cost_per_100_usd,tokens_per_100_answers,mean_latency_s
+anthropic/claude-haiku-5.5,all,180,180,4.87,4.99,4.97,4.98,4.99,4.96,96.1,0.0701,0.2743,572117,2.81
+anthropic/claude-haiku-5.5,ar,60,60,4.88,4.98,4.95,4.93,4.97,4.94,96.7,0.0773,0.2845,586961,3.53
+anthropic/claude-haiku-5.5,en,60,60,4.87,5.0,4.98,5.0,5.0,4.97,96.7,0.064,0.2598,559258,2.29
+anthropic/claude-haiku-5.5,fr,60,60,4.85,4.98,4.98,5.0,5.0,4.96,95.0,0.069,0.2787,570133,2.63
+deepseek/deepseek-v4.1-flash,all,180,180,4.96,5.0,5.0,4.97,5.0,4.98,100.0,0.0401,0.2751,379636,3.9
+deepseek/deepseek-v4.1-flash,ar,60,60,4.95,5.0,5.0,4.92,5.0,4.97,100.0,0.0372,0.2898,384653,4.03
+deepseek/deepseek-v4.1-flash,en,60,60,4.95,5.0,5.0,5.0,5.0,4.99,100.0,0.0457,0.2644,373555,3.65
+deepseek/deepseek-v4.1-flash,fr,60,60,4.97,5.0,5.0,4.98,5.0,4.99,100.0,0.0373,0.2711,380700,4.04
+openai/gpt-6-luna,all,180,180,4.84,4.97,4.94,5.0,4.99,4.95,96.7,0.0092,0.2727,358942,2.73
+openai/gpt-6-luna,ar,60,60,4.87,5.0,4.97,5.0,5.0,4.97,98.3,0.0101,0.2755,361186,2.68
+openai/gpt-6-luna,en,60,60,4.82,4.95,4.92,5.0,4.97,4.93,96.7,0.0085,0.2706,357081,2.59
+openai/gpt-6-luna,fr,60,60,4.85,4.97,4.95,5.0,5.0,4.95,95.0,0.0091,0.2719,358560,2.92

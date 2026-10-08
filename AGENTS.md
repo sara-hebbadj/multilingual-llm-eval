@@ -48,7 +48,15 @@ python -m evals.report --dry-run
 
 ## Known gaps
 
-- Reasoning models may spend part of `ANSWER_MAX_TOKENS` (600) on hidden reasoning; if answers come
-  back empty or cut off, raise it in `evals/run.py` and re-estimate the cost.
+- Reasoning models spend part of `max_tokens` on hidden reasoning. On 2026-10-08 this cut off the
+  judge at 300 tokens and Claude Haiku 5.5's Arabic answers at 600 (some came back empty), so the
+  limits are now `ANSWER_MAX_TOKENS` 2000 and `JUDGE_MAX_TOKENS` 1500. Check `finish_reason`
+  ("length") in `evals/traces.jsonl` after any run with a new model, and keep one limit for all
+  models in a comparison.
+- The judge sees only each item's reference facts, not the full shop policy. It failed 4 correct
+  "delivery is free" answers in the first run. Fixing it means a judge-prompt change, so bump
+  `PROMPT_VERSION` and re-run every model.
+- OpenRouter lists no `temperature` parameter for `openai/gpt-6-luna` or
+  `anthropic/claude-haiku-5.5`, so temperature 0 most likely does not apply to them.
 - OpenRouter normally returns `usage.cost`; if it does not, cost is computed from
   `model_prices.csv`.

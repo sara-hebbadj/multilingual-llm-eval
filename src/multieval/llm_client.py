@@ -29,6 +29,10 @@ class LLMResponse:
     output_tokens: int
     cost_usd: float | None  # OpenRouter reports the real cost in `usage.cost`
     latency_s: float
+    # "length" means the reply was cut off at max_tokens. Reasoning models count their
+    # hidden reasoning in output_tokens, so a reply can be cut off before any visible text.
+    finish_reason: str = ""
+    reasoning_tokens: int = 0
 
 
 class ChatClient(Protocol):
@@ -64,6 +68,7 @@ class OpenRouterClient:
         )
         latency = time.perf_counter() - start
         usage = response.usage
+        details = getattr(usage, "completion_tokens_details", None)
         return LLMResponse(
             text=response.choices[0].message.content or "",
             model=response.model or model,
@@ -71,6 +76,8 @@ class OpenRouterClient:
             output_tokens=getattr(usage, "completion_tokens", 0) or 0,
             cost_usd=getattr(usage, "cost", None),
             latency_s=round(latency, 3),
+            finish_reason=response.choices[0].finish_reason or "",
+            reasoning_tokens=getattr(details, "reasoning_tokens", 0) or 0,
         )
 
 

@@ -42,11 +42,47 @@ def test_dry_run_writes_every_output(tmp_path):
         assert (tmp_path / "charts" / f"{chart}.png").exists()
 
 
+def test_report_has_attack_grid_status_and_keeps_written_findings(tmp_path):
+    run.main(["--dry-run", "--limit", "15", "--models", "a", "--out-dir", str(tmp_path)])
+    assert report.main(["--folder", str(tmp_path)]) == 0
+    draft_path = tmp_path / "REPORT_DRAFT.md"
+    draft = draft_path.read_text(encoding="utf-8")
+    assert report.FINDINGS_TODO in draft
+    # Write findings between the markers, regenerate: they must survive.
+    draft_path.write_text(draft.replace(report.FINDINGS_TODO, "- Model a blocked every attack."),
+                          encoding="utf-8")
+    assert report.main(["--folder", str(tmp_path)]) == 0
+    with (tmp_path / "redteam_by_attack_language.csv").open(encoding="utf-8") as f:
+        long = list(csv.DictReader(f))
+    assert {r["language"] for r in long} == {"ar", "en", "fr"}
+    assert sum(int(r["n_attacks"]) for r in long) == 15
+    draft = (tmp_path / "REPORT_DRAFT.md").read_text(encoding="utf-8")
+    assert "By attack type and language" in draft and "Model a blocked every attack." in draft
+    assert "uncalibrated LLM-judge score" in draft  # no human grades in this folder
+    assert (tmp_path / "summary_by_variety.csv").exists()
+
+
 def test_judge_gets_a_second_chance_after_broken_json(tmp_path):
     client = FakeClient(["Returns are accepted within 14 days.", "not json", JUDGE_OK])
     row = run.evaluate_quality(_ctx(tmp_path, client), "m/x", "j/y", QUALITY[0], "en")
     assert row["passed"] is True and row["score_tone"] == 4 and row["judge_error"] == ""
     assert len(client.calls) == 3
+
+
+def test_judge_reply_cut_off_at_max_tokens_is_labelled(tmp_path):
+    # Seen in the first live smoke run: a reasoning judge used its whole token limit
+    # and the visible JSON stopped at '{"accuracy": 5, "'.
+    class CutOff(FakeClient):
+        def chat(self, model, messages, temperature=0.0, max_tokens=700):
+            if model == "m/x":
+                return LLMResponse("Returns: 14 days.", model, 10, 5, 0.0, 0.0, "stop")
+            return LLMResponse('{"accuracy": 5, "', model, 10, max_tokens, 0.0, 0.0, "length", 290)
+
+    row = run.evaluate_quality(_ctx(tmp_path, CutOff()), "m/x", "j/y", QUALITY[0], "en")
+    assert row["passed"] is None and "cut off at max_tokens" in row["judge_error"]
+    traces = [json.loads(line) for line in (tmp_path / "traces.jsonl").read_text().splitlines()]
+    assert traces[-1]["finish_reason"] == "length" and traces[-1]["reasoning_tokens"] == 290
+    assert run.JUDGE_MAX_TOKENS >= 1000  # room for hidden reasoning plus the JSON
 
 
 def test_leak_overrides_a_lenient_judge(tmp_path):
@@ -66,6 +102,22 @@ def test_failed_call_is_recorded_not_fatal(tmp_path):
     row = run.evaluate_quality(_ctx(tmp_path, Broken()), "m/x", "j/y", QUALITY[0], "en")
     assert "provider timeout" in row["answer_error"] and row["passed"] is None
     assert json.loads((tmp_path / "traces.jsonl").read_text())["outcome"] == "error"
+
+
+def test_ctrl_c_is_recorded_in_the_run_log(tmp_path, monkeypatch):
+    calls = {"n": 0}
+
+    def chat_then_stop(self, model, messages, temperature=0.0, max_tokens=700):
+        calls["n"] += 1
+        if calls["n"] > 2:  # one answer + one judge call, then Ctrl+C
+            raise KeyboardInterrupt
+        return LLMResponse(JUDGE_OK, model, 10, 10, 0.0, 0.0, "stop")
+
+    monkeypatch.setattr(run.FakeClient, "chat", chat_then_stop)
+    code = run.main(["--dry-run", "--limit", "3", "--set", "quality", "--out-dir", str(tmp_path)])
+    log = json.loads((tmp_path / "runs.jsonl").read_text())
+    assert code == 1 and "interrupted" in log["stopped"] and log["quality_rows"] == 1
+    assert log["answer_max_tokens"] == run.ANSWER_MAX_TOKENS
 
 
 def test_cost_guard_stops_a_run(tmp_path):

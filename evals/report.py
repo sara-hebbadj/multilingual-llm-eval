@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from multieval.agreement import agreement_rows, disagreements  # noqa: E402
+from multieval.dataset import EvalItem, RedTeamItem, load_jsonl  # noqa: E402
 from multieval.grading import is_graded, read_sheet  # noqa: E402
 from multieval.judge import CRITERIA, passes  # noqa: E402
 
@@ -29,6 +30,10 @@ REPO_ROOT = EVALS_DIR.parent
 SCORE_COLUMNS = [f"score_{c}" for c in CRITERIA]
 LANGUAGES = ["ar", "en", "fr"]
 LANGUAGE_NAMES = {"ar": "Arabic", "en": "English", "fr": "French"}
+HUMAN_TARGET = 60  # answers Sara grades by hand (20 per language), from the build spec
+# Findings written between these markers in REPORT_DRAFT.md survive a re-run of this script.
+FINDINGS_START, FINDINGS_END = "<!-- findings:start -->", "<!-- findings:end -->"
+FINDINGS_TODO = "> TODO (Sara): factual findings, each backed by a table below or an item ID."
 # One fixed colour per model, in this order (a colour-blind-checked categorical palette).
 SERIES_COLORS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#4a3aa7",
                  "#e34948"]
@@ -104,6 +109,30 @@ def redteam_summary(rt: pd.DataFrame, by: str = "language") -> pd.DataFrame:
                 "open_human_checks": int(sub["open_human_check"].sum()),
             })
     return pd.DataFrame(rows)
+
+
+def redteam_by_attack_language(rt: pd.DataFrame) -> pd.DataFrame:
+    """Long table: one row per model x attack type x language (3 attacks per cell)."""
+    rt = final_redteam_verdicts(rt)
+    rows = []
+    for (model, attack, lang), sub in rt.groupby(["model", "attack_type", "language"]):
+        decided = sub[sub["final_blocked"].notna()]
+        rows.append({
+            "model": model, "attack_type": attack, "language": lang, "n_attacks": len(sub),
+            "n_decided": len(decided), "blocked_n": int(decided["final_blocked"].astype(bool).sum()),
+            "blocked_pct": _round(100 * decided["final_blocked"].astype(float).mean(), 1),
+        })
+    return pd.DataFrame(rows)
+
+
+def attack_language_grid(long: pd.DataFrame) -> pd.DataFrame:
+    """Readable grid for the report: 'blocked/decided' per language, e.g. '2/3'."""
+    if long.empty:
+        return long
+    long = long.assign(cell=long["blocked_n"].astype(str) + "/" + long["n_decided"].astype(str))
+    grid = long.pivot_table(index=["model", "attack_type"], columns="language", values="cell",
+                            aggfunc="first")
+    return grid.reindex(columns=[c for c in LANGUAGES if c in grid.columns]).reset_index()
 
 
 def failed_examples(results: pd.DataFrame, n: int = 12) -> pd.DataFrame:
@@ -203,12 +232,15 @@ def cost_vs_quality(summary: pd.DataFrame, path: Path, note: str = "") -> None:
     fig, ax = plt.subplots(figsize=(6.5, 4))
     ax.scatter(overall["answer_cost_per_100_usd"], overall["pass_rate_pct"], s=64,
                color=SERIES_COLORS[0], edgecolor="white", linewidth=2, zorder=3)
-    for i, (_, r) in enumerate(overall.iterrows()):  # label each model directly, no legend
+    # Label each model directly (no legend), alternating above/below in cost order so
+    # neighbouring labels do not overlap.
+    by_cost = overall.sort_values("answer_cost_per_100_usd")
+    for i, (_, r) in enumerate(by_cost.iterrows()):
         ax.annotate(r["model"], (r["answer_cost_per_100_usd"], r["pass_rate_pct"]),
-                    textcoords="offset points", xytext=(6, [6, -12, 18][i % 3]), fontsize=8, color=INK)
+                    textcoords="offset points", xytext=(6, [8, -14][i % 2]), fontsize=8, color=INK)
     ax.set_xlabel("US$ per 100 answers (assistant only)", color=MUTED)
-    ax.set_xlim(left=0)
-    ax.set_ylim(0, 105)
+    ax.set_xlim(0, 1.7 * max(overall["answer_cost_per_100_usd"].max(), 1e-9))  # room for labels
+    ax.set_ylim(0, 115)
     _style(ax, "Cost vs pass rate, per model", "Pass rate (%)", note)
     fig.tight_layout()
     fig.savefig(path, dpi=150)
@@ -240,9 +272,31 @@ def md_table(df: pd.DataFrame) -> str:
     return "\n".join(lines)
 
 
-def write_report_draft(folder: Path, chart_dir: Path, dry_run: bool, tables: dict) -> Path:
+def native_review_counts() -> tuple[int, int]:
+    """(reviewed, total) Arabic and French items across both test sets."""
+    items = (load_jsonl(EVALS_DIR / "dataset.jsonl", EvalItem)
+             + load_jsonl(EVALS_DIR / "redteam.jsonl", RedTeamItem))
+    ar_fr = [i for i in items if i.language in ("ar", "fr")]
+    return sum(i.reviewed for i in ar_fr), len(ar_fr)
+
+
+def status_note(n_human: int) -> str:
+    """Says plainly how far the numbers can be trusted yet (review and calibration status)."""
+    reviewed, total = native_review_counts()
+    lines = [f"- Arabic/French test items reviewed by a native speaker: **{reviewed} of {total}**.",
+             f"- Human calibration (Sara's blind grades): **{n_human} of {HUMAN_TARGET}** answers."]
+    if reviewed < total or n_human < HUMAN_TARGET:
+        lines.append("- Until both are complete, every score below is an **uncalibrated LLM-judge "
+                     "score**, not a human score, and Arabic/French results may partly reflect "
+                     "test wording that a native speaker would change.")
+    return "**Status of this report**\n\n" + "\n".join(lines) + "\n"
+
+
+def write_report_draft(folder: Path, chart_dir: Path, dry_run: bool, tables: dict,
+                       n_human: int = 0) -> Path:
     """The two-page report template: every table filled from the CSVs, the prose left as
-    TODOs. Sara writes the findings and saves the result as REPORT.md in the repo root."""
+    TODOs. Sara writes the findings and saves the result as REPORT.md in the repo root.
+    Text written between the findings markers is kept when the draft is regenerated."""
     runs = []
     if (folder / "runs.jsonl").exists():
         runs = [json.loads(line) for line in (folder / "runs.jsonl").read_text().splitlines() if line]
@@ -250,18 +304,29 @@ def write_report_draft(folder: Path, chart_dir: Path, dry_run: bool, tables: dic
                "results. Never copy them into REPORT.md.**\n" if dry_run else "")
     run_lines = "\n".join(
         f"- `{r['run_id']}`: models {r['models']}, judge `{r['judge']}`, prompt {r['prompt_version']}, "
-        f"temperature {r['temperature']}, {r['quality_rows']} quality + {r['redteam_rows']} red-team "
-        f"rows, spent ${r['spent_usd']}" + (f", STOPPED: {r['stopped']}" if r["stopped"] else "")
+        f"temperature {r['temperature']}, max tokens {r.get('answer_max_tokens', '?')} (answer) / "
+        f"{r.get('judge_max_tokens', '?')} (judge), {r['quality_rows']} quality + "
+        f"{r['redteam_rows']} red-team rows, spent ${r['spent_usd']}"
+        + (f", STOPPED: {r['stopped']}" if r["stopped"] else "")
+        + (f" ({r['note']})" if r.get("note") else "")
         for r in runs)
     charts = _display_path(chart_dir)
+    path = folder / "REPORT_DRAFT.md"
+    findings = kept_findings(path)
+    reviewed, total = native_review_counts()
+    agreement_text = (md_table(tables["agreement"]) if not tables["agreement"].empty else
+                      "_Pending: no human grades yet. Grade `evals/human_grades.csv` (or use "
+                      "`app/grading_app.py`), then re-run `python -m evals.report`._")
     parts = [
         "# Which model should answer Lumi Skin's customers in Arabic, English and French?\n",
         warning,
         "_Report template generated by `python -m evals.report`. Tables are filled from the "
         "results; write the TODO parts yourself, keep it to about two pages, and save it as "
         "`REPORT.md`._\n",
+        status_note(n_human),
         "## 1. Summary\n\n> TODO (Sara): which model for which language and budget, the biggest "
         "failure, and how far the judge can be trusted (3-4 sentences).\n",
+        f"### Findings\n\n{FINDINGS_START}\n{findings or FINDINGS_TODO}\n{FINDINGS_END}\n",
         f"## 2. Setup\n\n{run_lines or '_No runs logged._'}\n\n"
         "Test set: 180 quality items (60 per language) and 45 red-team attacks (15 per language). "
         "Native-speaker review status: see `evals/dataset_stats.md`. Pass rule: accuracy ≥ 4 and "
@@ -277,10 +342,12 @@ def write_report_draft(folder: Path, chart_dir: Path, dry_run: bool, tables: dic
         "> TODO (Sara): group the failures (wrong fact, invented policy, wrong language, ignored "
         "format...) and say what you would change in the prompt or the model choice.\n",
         f"## 5. Red team\n\n{md_table(tables['redteam'])}\n\n### By attack type\n\n"
-        f"{md_table(tables['redteam_by_attack'])}\n\n### Not blocked (check each by hand)\n\n"
+        f"{md_table(tables['redteam_by_attack'])}\n\n### By attack type and language "
+        f"(blocked / decided)\n\n{md_table(tables['redteam_grid'])}\n\n"
+        "### Not blocked (check each by hand)\n\n"
         f"{md_table(tables['not_blocked'])}\n\n"
         "> TODO (Sara): one attack that worked, and how you would fix it.\n",
-        f"## 6. Can the judge be trusted?\n\n{md_table(tables['agreement'])}\n\n"
+        f"## 6. Can the judge be trusted?\n\n{agreement_text}\n\n"
         f"### Largest disagreements\n\n{md_table(tables['disagreements'].head(15))}\n\n"
         "> TODO (Sara): where the judge disagreed with you, and whether it is too lenient or too "
         "strict in a particular language.\n",
@@ -289,12 +356,25 @@ def write_report_draft(folder: Path, chart_dir: Path, dry_run: bool, tables: dic
         "## 8. Limitations\n\n"
         "- 60 items per language and 20 human grades per language: kappa on 20 items is noisy.\n"
         "- One judge model, run once; its biases are only partly measured by 60 human grades.\n"
-        "- The prompts were drafted by an AI model and reviewed by one native speaker.\n"
+        f"- The prompts were drafted by an AI model; {reviewed} of {total} Arabic/French items "
+        "have been reviewed by a native speaker so far.\n"
         "- Single-turn questions; the assistant has no tools or order lookup.\n",
     ]
-    path = folder / "REPORT_DRAFT.md"
     path.write_text("\n".join(parts), encoding="utf-8")
     return path
+
+
+def kept_findings(path: Path) -> str:
+    """The findings text between the markers in an existing draft ("" if there is none).
+    Regenerating the tables (for example after Sara's grading) must not erase it."""
+    if not path.exists():
+        return ""
+    text = path.read_text(encoding="utf-8")
+    start, end = text.find(FINDINGS_START), text.find(FINDINGS_END)
+    if start == -1 or end <= start:
+        return ""
+    kept = text[start + len(FINDINGS_START):end].strip()
+    return "" if kept == FINDINGS_TODO else kept
 
 
 def _display_path(path: Path) -> str:
@@ -329,10 +409,12 @@ def main(argv: list[str] | None = None) -> int:
             ["model", "variety", "n_graded", "pass_rate_pct", "mean_language"]],
         "failures": failed_examples(results),
         "redteam": pd.DataFrame(), "redteam_by_attack": pd.DataFrame(), "not_blocked": pd.DataFrame(),
+        "redteam_grid": pd.DataFrame(),
         "agreement": pd.DataFrame(), "disagreements": pd.DataFrame(),
     }
     tables["summary"].to_csv(folder / "summary.csv", index=False)
     tables["by_category"].to_csv(folder / "summary_by_category.csv", index=False)
+    tables["by_variety"].to_csv(folder / "summary_by_variety.csv", index=False)
     by_lang = tables["summary"][tables["summary"]["language"] != "all"]
     grouped_bars(by_lang, "mean_overall", "Mean score (1-5) by model and language", "Mean score",
                  chart_dir / "score_by_model_language.png", ymax=5.5, note=note)
@@ -345,7 +427,11 @@ def main(argv: list[str] | None = None) -> int:
         tables["redteam"] = redteam_summary(rt, "language")
         tables["redteam_by_attack"] = redteam_summary(rt, "attack_type")
         tables["not_blocked"] = not_blocked_examples(rt)
+        long = redteam_by_attack_language(rt)
+        tables["redteam_grid"] = attack_language_grid(long)
         tables["redteam"].to_csv(folder / "redteam_summary.csv", index=False)
+        tables["redteam_by_attack"].to_csv(folder / "redteam_by_attack.csv", index=False)
+        long.to_csv(folder / "redteam_by_attack_language.csv", index=False)
         rt_lang = tables["redteam"][tables["redteam"]["language"] != "all"]
         grouped_bars(rt_lang, "blocked_pct", "Red-team attacks blocked, by model and language",
                      "Blocked (%)", chart_dir / "redteam_block_rate.png", ymax=110, note=note)
@@ -358,7 +444,7 @@ def main(argv: list[str] | None = None) -> int:
         tables["disagreements"].to_csv(folder / "disagreements.csv", index=False, encoding="utf-8-sig")
         agreement_chart(tables["agreement"], chart_dir / "judge_human_agreement.png", note)
 
-    draft = write_report_draft(folder, chart_dir, dry, tables)
+    draft = write_report_draft(folder, chart_dir, dry, tables, n_human=len(pairs))
     print(f"Wrote summaries to {folder}, charts to {chart_dir}, draft {draft.name}")
     if dry:
         print("DRY RUN: placeholder numbers, NOT real results.")

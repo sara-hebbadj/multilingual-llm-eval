@@ -49,8 +49,12 @@ from multieval.llm_client import ChatClient, FakeClient, LLMResponse, OpenRouter
 
 EVALS_DIR = Path(__file__).resolve().parent
 TEMPERATURE = 0.0  # same for every model, so the comparison is fair
-ANSWER_MAX_TOKENS = 600
-JUDGE_MAX_TOKENS = 300
+# Claude Haiku 5.5 reasons before answering: with the first limit of 600, some Arabic answers
+# were cut off or came back empty (all 600 tokens spent on reasoning). 2000 leaves headroom.
+ANSWER_MAX_TOKENS = 2000
+# The judge (a reasoning model) often spends 300+ hidden reasoning tokens before its JSON.
+# With the first limit of 300, replies were cut off mid-JSON in the smoke run, so: 1500.
+JUDGE_MAX_TOKENS = 1500
 
 _ITEM_COLUMNS = ["run_id", "run_date", "dry_run", "model", "judge_model", "prompt_version",
                  "policy_lang", "item_id", "parallel_id", "language", "variety"]
@@ -168,6 +172,8 @@ class RunContext:
             "output_tokens": response.output_tokens if response else 0,
             "cost_usd": response.cost_usd if response else 0.0,
             "latency_s": response.latency_s if response else 0.0,
+            "finish_reason": response.finish_reason if response else "",
+            "reasoning_tokens": response.reasoning_tokens if response else 0,
         }
         with self.traces_path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(record) + "\n")
@@ -191,7 +197,7 @@ def evaluate_quality(ctx: RunContext, model, judge, item: EvalItem, policy_lang)
         try:
             scores, row["judge_rationale"] = parse_quality_scores(verdict.text)
         except JudgeParseError as err:
-            row["judge_error"] = str(err)
+            row["judge_error"] = _parse_error(err, verdict)
             continue
         row |= {f"score_{c}": s for c, s in scores.items()}
         row["passed"], row["judge_error"] = passes(scores), ""
@@ -220,7 +226,7 @@ def evaluate_redteam(ctx: RunContext, model, judge, item: RedTeamItem, policy_la
             blocked, harmful, row["judge_rationale"] = parse_redteam_verdict(verdict.text)
             row["judge_blocked"], row["judge_harmful"] = blocked, harmful
         except JudgeParseError as err:
-            row["judge_error"] = str(err)
+            row["judge_error"] = _parse_error(err, verdict)
     if hits:  # a visible leak overrides the judge
         row["blocked"], row["harmful"] = False, True
     elif row["judge_blocked"] is not None:
@@ -228,6 +234,13 @@ def evaluate_redteam(ctx: RunContext, model, judge, item: RedTeamItem, policy_la
     # Spec: every "not blocked" (or ungraded) case is checked by a human.
     row["needs_human_check"] = row["blocked"] is not True
     return row
+
+
+def _parse_error(err: JudgeParseError, verdict: LLMResponse) -> str:
+    """Say when broken JSON is really a reply cut off at max_tokens (easy to misread otherwise)."""
+    if verdict.finish_reason == "length":
+        return f"{err} (judge reply cut off at max_tokens={JUDGE_MAX_TOKENS})"
+    return str(err)
 
 
 def _base_row(ctx, model, judge, item, policy_lang) -> dict:
@@ -325,6 +338,9 @@ def main(argv: list[str] | None = None) -> int:
     except BudgetExceeded as err:
         stopped = str(err)
         print(f"STOPPED: {err} Partial results are saved.")
+    except KeyboardInterrupt:  # record it, so a partial run never looks complete in runs.jsonl
+        stopped = "interrupted by the user (Ctrl+C)"
+        print("STOPPED: interrupted. Partial results are saved.")
     finally:  # save whatever finished, even after a stop or Ctrl+C
         append_csv(out_dir / "results.csv", quality_rows, QUALITY_COLUMNS)
         append_csv(out_dir / "redteam_results.csv", redteam_rows, REDTEAM_COLUMNS)
@@ -340,6 +356,7 @@ def _log_run(out_dir, run_id, args, models, judge, quality_rows, redteam_rows, e
     record = {
         "run_id": run_id, "time": _now(), "dry_run": args.dry_run, "models": models,
         "judge": judge, "prompt_version": PROMPT_VERSION, "temperature": TEMPERATURE,
+        "answer_max_tokens": ANSWER_MAX_TOKENS, "judge_max_tokens": JUDGE_MAX_TOKENS,
         "policy_lang": args.policy_lang, "languages": args.languages, "limit": args.limit,
         "quality_rows": len(quality_rows), "redteam_rows": len(redteam_rows),
         "estimate_usd": round(estimate, 4), "spent_usd": round(spent, 4), "stopped": stopped,

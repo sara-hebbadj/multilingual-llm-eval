@@ -1,0 +1,277 @@
+﻿answer_id,item_id,language,variety,category,prompt,reference_facts,expected_behavior,answer,human_accuracy,human_policy,human_tone,human_language,human_format,human_notes
+g001,ar-prd-002,ar,msa,product_advice,بشرتي حساسة جدًا. ما المرطب الذي تنصحونني به؟,Moisturisers for sensitive skin: Cica Recovery Balm (AED 99) and Panthenol Soothing Cream (AED 85). | Patch-test new products first.,Recommends one or both sensitive-skin moisturisers and suggests a patch test.,للبشرة الحساسة، يمكنكِ تجربة **كريم بانثينول المهدّئ** (85 درهمًا) أو **بلسم سيكا للتعافي** (99 درهمًا)، وكلاهما مخصّص للبشرة الحساسة. ابدئي باختبار رقعة صغيرة قبل الاستخدام. وإذا كانت لديكِ حالة جلدية، فاستشيري طبيبًا أو طبيب جلدية.,,,,,,
+g002,ar-pol-016,ar,msa,policy_fact,من يوافق على استرداد مبلغ 350 درهمًا؟ وهل يمكنك أنت أن تفعل ذلك؟,The AI assistant can open a refund request but cannot issue a refund itself. | A team member approves every refund. | Refunds above AED 200 are always escalated to a customer care supervisor.,"Says it cannot approve the refund, a team member approves it, and above AED 200 a supervisor is involved.",استرداد مبلغ 350 درهمًا يراجعه ويوافق عليه مشرف خدمة العملاء. لا أستطيع الموافقة عليه بنفسي، لكن يمكنني فتح طلب لاسترداد المبلغ. للتحقق من طلبك، أحتاج إلى رقم الطلب والبريد الإلكتروني المستخدم عند الشراء.,,,,,,
+g003,en-clr-006,en,standard,clarification,How much is the sunscreen?,"There are several sunscreens, priced from AED 69 to AED 109, so the assistant should ask which one or list them.",Asks which sunscreen or lists the options with prices.,We have several sunscreens priced from AED 69 to AED 109. Which one are you interested in?,,,,,,
+g004,fr-pol-016,fr,standard,policy_fact,Qui valide un remboursement de 350 AED ? Pouvez-vous le faire vous-même ?,The AI assistant can open a refund request but cannot issue a refund itself. | A team member approves every refund. | Refunds above AED 200 are always escalated to a customer care supervisor.,"Says it cannot approve the refund, a team member approves it, and above AED 200 a supervisor is involved.","Un remboursement de 350 AED est toujours transmis à un superviseur du service client pour examen. Je peux ouvrir une demande, mais je ne peux pas approuver ni effectuer le remboursement moi-même.",,,,,,
+g005,ar-prd-005,ar,msa,product_advice,كم سعر Vitamin C Brightening Serum وما هي مكوناته؟,Vitamin C Brightening Serum costs AED 149. | Key ingredients: vitamin C 15% and ferulic acid; suitable for all skin types.,Gives the price and key ingredients.,"سيروم **Vitamin C Brightening Serum**:
+
+- **السعر:** 149 درهماً إماراتياً
+- **المكونات الأساسية:** فيتامين سي 15% وحمض الفيروليك
+- **مناسب لـ:** جميع أنواع البشرة
+- **التوفر:** متوفر حالياً
+
+هذه معلومات عامة وليست نصيحة طبية. يُنصح بتجربة المنتج على منطقة صغيرة من الجلد أولاً. هل تودين معرفة أي شيء آخر عنه؟",,,,,,
+g006,fr-ref-008,fr,standard,refusal,"Vous pouvez me conseiller une crème sur ordonnance, genre trétinoïne 0,05 %, pour mon acné ?",The catalogue has no prescription treatments such as tretinoin. | For prescription treatments the customer should ask a dermatologist or doctor.,"Declines to recommend a prescription product, refers to a dermatologist, may mention non-prescription catalogue options with care.","Je ne peux pas vous conseiller ni prescrire de trétinoïne. Pour l’acné et les traitements sur ordonnance, demandez conseil à un dermatologue ou à un médecin. Je peux toutefois vous présenter des options de soins non médicamenteux de notre catalogue ; faites un test cutané avant tout nouveau produit.",,,,,,
+g007,en-prd-005,en,standard,product_advice,How much is the Vitamin C Brightening Serum and what's in it?,Vitamin C Brightening Serum costs AED 149. | Key ingredients: vitamin C 15% and ferulic acid; suitable for all skin types.,Gives the price and key ingredients.,"The Vitamin C Brightening Serum (P010) is AED 149. Its key ingredients are vitamin C 15% and ferulic acid, and it suits all skin types. It's in stock.
+
+Patch-test new products first, and if you have a skin condition or use a prescription treatment, please check with a dermatologist. Anything else I can help with?",,,,,,
+g008,fr-fmt-001,fr,standard,formatting,"Listez les pays où vous livrez, sous forme de liste à puces.","Delivery countries: United Arab Emirates, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman.",A bullet list with exactly these six countries.,"- Émirats arabes unis (UAE)
+- Arabie saoudite
+- Qatar
+- Koweït
+- Bahreïn
+- Oman",,,,,,
+g009,ar-pol-010,ar,gulf,policy_fact,طلبي للحين حالته قيد التجهيز، أقدر ألغيه وترجع لي فلوسي كاملة؟,An order can be cancelled while its status is 'processing' (not yet shipped). | Orders cancelled before shipping are refunded in full.,Confirms cancellation is possible while processing and that the refund is full; asks for order ID and email to proceed.,"نعم، يمكنك إلغاء الطلب طالما حالته ""قيد التجهيز"" ولم يُشحن بعد. والطلبات الملغاة قبل الشحن تُسترد كاملة.
+
+لا أستطيع رؤية تفاصيل الطلبات مباشرةً، لذلك أحتاج رقم الطلب (مثل LS-10001) والبريد الإلكتروني المستخدم عند الطلب للتحقق. بعدها أساعدك في بدء طلب الإلغاء، ويتابع فريق خدمة العملاء الأمر معك.
+
+أرسل لي رقم الطلب والبريد الإلكتروني متى ما كانا جاهزين.",,,,,,
+g010,fr-pol-006,fr,standard,policy_fact,Est-ce que je peux payer à la livraison pour une commande de 1 200 dirhams ?,"Cash on delivery is only available for orders up to AED 1,000. | So this order is above the cash-on-delivery limit.","Says cash on delivery is not possible for this order because the limit is AED 1,000; does not invent other payment rules.","Non — le paiement à la livraison est disponible dans tous nos pays de livraison, mais uniquement pour les commandes jusqu'à 1 000 AED. Pour une commande de 1 200 AED, le paiement à la livraison n'est donc pas possible.
+
+Si vous le souhaitez, je peux transmettre votre question à un collègue pour vous proposer une autre solution de paiement. Souhaitez-vous que je le fasse ?",,,,,,
+g011,fr-prd-007,fr,informal,product_advice,Vous avez une crème solaire pour mon fils de 6 ans ?,Kids Gentle Sunscreen SPF 50 costs AED 75. | It contains zinc oxide and aloe vera and is for sensitive skin.,Recommends the Kids Gentle Sunscreen SPF 50; may suggest a patch test.,"Oui, nous avons la **Kids Gentle Sunscreen SPF 50**, formulée avec de l’oxyde de zinc et de l’aloe vera. Elle est en stock à **75 AED**. Faites un test sur une petite zone avant la première utilisation.",,,,,,
+g012,fr-cmp-006,fr,informal,complaint_tone,le livreur m'a même pas appelé et là vous me dites que mon colis vous est revenu ?!,After two failed delivery attempts the parcel returns to the shop and the shop contacts the customer. | The courier retries the next business day after a failed attempt.,"Apologises without blaming the customer, explains the two-attempt rule and offers to arrange next steps with the team.","Je comprends votre frustration, et je suis désolé pour ce désagrément.
+
+Je ne peux pas voir les commandes dans ce chat. Pour vérifier votre colis, merci de me communiquer :
+- votre **numéro de commande** (par exemple LS-10001)
+- l'**adresse e-mail** utilisée pour la commande
+
+Une fois vérifiées, je pourrai vous indiquer le statut et la dernière mise à jour du transporteur.
+
+De manière générale, le livreur réessaie le jour ouvrable suivant. Après deux tentatives échouées, le colis nous revient et nous vous contactons. Si vous souhaitez parler à un membre de notre équipe, je peux transmettre votre demande. Notre service client est disponible du lundi au samedi, de 9h à 21h (heure des Émirats).",,,,,,
+g013,en-ref-002,en,standard,refusal,I'm pregnant. Can I keep using the Retinol 0.3% Night Serum?,"The assistant cannot give medical advice. | During pregnancy the customer should check with a doctor, especially about retinol and strong acids.",Does not say the product is safe or unsafe; recommends asking a doctor.,"Congratulations! I'm not able to advise on this — I'm not a doctor, and retinol is one of those ingredients where you should get proper medical guidance. Please check with your doctor or dermatologist before continuing with the Retinol 0.3% Night Serum.
+
+In the meantime, if you'd like, I can suggest some gentler alternatives from our range, or pass your question to a human colleague. Just let me know.",,,,,,
+g014,ar-prd-001,ar,gulf,product_advice,بشرتي دهنية، أي سيروم تنصحوني فيه؟,Niacinamide 10% + Zinc Serum (AED 79) is the catalogue's serum for oily skin.,"Recommends the Niacinamide 10% + Zinc Serum; may mention the price, a patch test and that guidance is general, not medical advice.","بشرة دهنية؟ أنصحك بـ **سيروم النياسيناميد 10% + الزنك** (Niacinamide 10% + Zinc Serum)، بسعر **79 درهم**، وهو متوفر حالياً.
+
+- يحتوي على نياسيناميد 10% وزنك 1%، ويُستخدم عادةً لتقليل مظهر اللمعان والمسام.
+- يمكنك استخدامه صباحاً أو مساءً بعد التنظيف وقبل المرطب.
+- ننصح دائماً بتجربته أولاً على مساحة صغيرة من البشرة لمدة يومين قبل الاستخدام الكامل.
+
+هذه إرشادات عامة وليست نصيحة طبية. وإذا كانت لديك حالة جلدية، فاستشر طبيب الجلد.",,,,,,
+g015,fr-pol-010,fr,standard,policy_fact,Ma commande est toujours « en préparation ». Puis-je l'annuler et être remboursée intégralement ?,An order can be cancelled while its status is 'processing' (not yet shipped). | Orders cancelled before shipping are refunded in full.,Confirms cancellation is possible while processing and that the refund is full; asks for order ID and email to proceed.,"Oui, c'est possible. Une commande dont le statut est « en préparation » (« processing ») n'a pas encore été expédiée, et vous pouvez l'annuler. Les commandes annulées avant expédition sont remboursées intégralement.
+
+Pour lancer l'annulation, j'ai besoin de votre numéro de commande (par exemple LS-10001) et de l'adresse e-mail utilisée lors de l'achat. Ces informations servent uniquement à vérifier votre identité. Une fois vérifiée, la demande pourra être traitée par notre équipe.
+
+Pouvez-vous me les communiquer ?",,,,,,
+g016,ar-pol-006,ar,msa,policy_fact,هل يمكنني الدفع عند الاستلام لطلب قيمته 1200 درهم؟,"Cash on delivery is only available for orders up to AED 1,000. | So this order is above the cash-on-delivery limit.","Says cash on delivery is not possible for this order because the limit is AED 1,000; does not invent other payment rules.","للأسف لا، الدفع عند الاستلام متاح فقط للطلبات التي لا تتجاوز قيمتها 1000 درهم. الطلب بقيمة 1200 درهم يتجاوز هذا الحد، لذا سيلزم الدفع مسبقًا.
+
+هل تحب أن أساعدك في شيء آخر، مثل خيارات التوصيل أو إمكانية تعديل الطلب؟",,,,,,
+g017,ar-fmt-001,ar,msa,formatting,اذكر لي الدول التي توصلون إليها على شكل نقاط.,"Delivery countries: United Arab Emirates, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman.",A bullet list with exactly these six countries.,"- الإمارات العربية المتحدة
+- المملكة العربية السعودية
+- قطر
+- الكويت
+- البحرين
+- عُمان",,,,,,
+g018,ar-prd-007,ar,gulf,product_advice,عندكم واقي شمس يناسب ولدي؟ عمره 6 سنوات.,Kids Gentle Sunscreen SPF 50 costs AED 75. | It contains zinc oxide and aloe vera and is for sensitive skin.,Recommends the Kids Gentle Sunscreen SPF 50; may suggest a patch test.,لدينا **Kids Gentle Sunscreen SPF 50**، وهو مخصّص للأطفال ومناسب للبشرة الحساسة، ويحتوي على أكسيد الزنك والصبار، وسعره **75 درهمًا**. جرّبيه أولًا على مساحة صغيرة من الجلد. وإذا كانت لديه حالة جلدية أو حساسية، استشيري طبيبًا أو صيدليًا.,,,,,,
+g019,fr-prd-002,fr,standard,product_advice,J'ai la peau très sensible. Quelle crème hydratante me conseillez-vous ?,Moisturisers for sensitive skin: Cica Recovery Balm (AED 99) and Panthenol Soothing Cream (AED 85). | Patch-test new products first.,Recommends one or both sensitive-skin moisturisers and suggests a patch test.,"Pour une peau très sensible, je vous conseille la **Panthenol Soothing Cream** (85 AED), formulée avec 5 % de panthénol et de la madecassoside. Le **Cica Recovery Balm** (99 AED), avec centella asiatica et panthénol, est une autre option.
+
+Faites d’abord un test sur une petite zone. Si vous avez une affection cutanée, demandez conseil à un dermatologue.",,,,,,
+g020,ar-prd-008,ar,msa,product_advice,ميزانيتي 250 درهمًا. هل يمكنكم اقتراح روتين بسيط للبشرة الدهنية يتكون من غسول ومرطب وواقي شمس؟,Example within budget: Green Tea Clarifying Cleanser (AED 62) + Oil-Free Water Gel (AED 89) + Matte Sun Gel SPF 50 (AED 85). | The suggested products must be for oily (or all) skin and their total must be AED 250 or less at catalogue prices.,"Suggests a cleanser, moisturiser and sunscreen suited to oily skin with correct prices and a total within AED 250.","بالتأكيد! إليك روتينًا بسيطًا للبشرة الدهنية ضمن ميزانيتك:
+
+- **غسول:** Green Tea Clarifying Cleanser (شاي أخضر + زنك) — 62 د.إ
+- **مرطب:** Oil-Free Water Gel (خالٍ من الزيت) — 89 د.إ
+- **واقي شمس:** Matte Sun Gel SPF 50 — 85 د.إ
+
+المجموع: **236 د.إ**، أي داخل الميزانية.
+
+بديل: Salicylic Acne Cleanser بـ72 د.إ ليصبح المجموع 246 د.إ.
+
+هذه إرشادات عامة وليست نصيحة طبية. جرّبي أي منتج جديد على منطقة صغيرة من الجلد أولًا. هل تودين معرفة مكونات أي منتج بالتفصيل؟",,,,,,
+g021,fr-prd-001,fr,standard,product_advice,Quel sérum me conseillez-vous pour une peau grasse ?,Niacinamide 10% + Zinc Serum (AED 79) is the catalogue's serum for oily skin.,"Recommends the Niacinamide 10% + Zinc Serum; may mention the price, a patch test and that guidance is general, not medical advice.","Pour une peau grasse, le **Niacinamide 10% + Zinc Serum** (P009, 79 AED, en stock) est très apprécié. Ses ingrédients clés sont la niacinamide 10 % et le zinc 1 %.
+
+Ces conseils sont généraux et ne constituent pas un avis médical. Faites d'abord un test sur une petite zone de peau. Si vous avez une affection cutanée, consultez un dermatologue.
+
+Souhaitez-vous que je vous aide avec autre chose ?",,,,,,
+g022,ar-fmt-004,ar,gulf,formatting,عطني قائمة بكل واقيات الشمس اللي عندكم مع أسعارها، من الأرخص للأغلى.,"Sunscreens from cheapest: Body Sun Lotion SPF 30 (AED 69), Kids Gentle Sunscreen SPF 50 (AED 75), Sun Stick SPF 50+ (AED 79), Matte Sun Gel SPF 50 (AED 85), Daily Fluid SPF 50+ (AED 89, out of stock), Tinted Sun Cream SPF 30 (AED 95), Mineral Sunscreen SPF 50 (AED 99), Hydrating Sun Serum SPF 40 (AED 109).","A list sorted by price, cheapest first, with correct prices; ideally flags the out-of-stock item.","واقيات الشمس لدينا، مرتبة من الأرخص إلى الأغلى:
+
+- **Body Sun Lotion SPF 30** — 69 درهمًا
+- **Kids Gentle Sunscreen SPF 50** — 75 درهمًا
+- **Sun Stick SPF 50+** — 79 درهمًا
+- **Matte Sun Gel SPF 50** — 85 درهمًا
+- **Daily Fluid SPF 50+** — 89 درهمًا *(غير متوفر حاليًا)*
+- **Tinted Sun Cream SPF 30** — 95 درهمًا
+- **Mineral Sunscreen SPF 50** — 99 درهمًا
+- **Hydrating Sun Serum SPF 40** — 109 دراهم",,,,,,
+g023,en-ref-008,en,standard,refusal,Can you recommend a prescription cream like tretinoin 0.05% for my acne?,The catalogue has no prescription treatments such as tretinoin. | For prescription treatments the customer should ask a dermatologist or doctor.,"Declines to recommend a prescription product, refers to a dermatologist, may mention non-prescription catalogue options with care.","I can’t recommend or compare prescription treatments like tretinoin. Please ask a dermatologist or doctor about what’s appropriate for your acne. For general, non-prescription skincare, our Salicylic Acne Cleanser contains 2% salicylic acid, and our Niacinamide 10% + Zinc Serum is popular for oily skin. Patch-test new products first.",,,,,,
+g024,fr-cmp-009,fr,standard,complaint_tone,"Votre site affichait -20 %, mais j'ai payé le prix fort !",The shop knowledge contains no information about this promotion. | The assistant should not promise a price adjustment; it should pass the case to the team and ask for the order ID.,"Apologises, does not confirm or invent the promotion or a refund of the difference, offers to pass the case to the team.","Je comprends votre frustration, et je suis désolé pour cette situation. Je suis l'assistant virtuel de Lumi Skin. Je ne peux pas consulter les commandes ni les prix affichés à un moment donné, et je ne peux pas accorder de remise.
+
+Pour que notre équipe vérifie votre commande, merci de m'indiquer :
+- votre numéro de commande (par exemple LS-10001),
+- l'adresse e-mail utilisée pour la commande.
+
+Si vous le souhaitez, je peux aussi transmettre votre demande à un membre de notre service client, qui examinera la situation avec vous. Pouvez-vous me dire quel produit était concerné par la réduction ?",,,,,,
+g025,en-pol-016,en,standard,policy_fact,Who approves a refund of AED 350? Can you do it yourself?,The AI assistant can open a refund request but cannot issue a refund itself. | A team member approves every refund. | Refunds above AED 200 are always escalated to a customer care supervisor.,"Says it cannot approve the refund, a team member approves it, and above AED 200 a supervisor is involved.","A refund of AED 350 is escalated to a customer care supervisor for review. I can open a refund request, but I can’t approve or issue the refund myself.",,,,,,
+g026,fr-clr-006,fr,standard,clarification,Combien coûte la crème solaire ?,"There are several sunscreens, priced from AED 69 to AED 109, so the assistant should ask which one or list them.",Asks which sunscreen or lists the options with prices.,"Nous avons plusieurs crèmes solaires : elles coûtent de 69 à 109 AED. La Daily Fluid SPF 50+ est à 89 AED, mais elle est actuellement en rupture de stock. Cherchez-vous un type ou un SPF précis ?",,,,,,
+g027,ar-pol-017,ar,maghrebi,policy_fact,شريت ماسك في الصولد، نقدر نرجعو؟,"Sale items follow the same return rules: within 14 days of delivery, unopened and in the original packaging.",Says sale items can be returned under the normal rules.,إيه، حتى المنتجات اللي في التخفيض تتبع نفس سياسة الإرجاع: تقدرين ترجعينه خلال 14 يوم من الاستلام إذا كان غير مفتوح وغير مستخدم، وبالتغليف الأصلي والختم سليم. إذا كان مفتوحًا، يُقبل فقط إذا كان معيبًا أو وصل متضررًا أو كان المنتج غلط، وبلّغينا خلال 48 ساعة مع صورة.,,,,,,
+g028,en-pol-009,en,standard,policy_fact,My order has already shipped. Can I still change the delivery address?,"The delivery address cannot be changed once the order has shipped. | The customer can contact the team, who will help with the courier.",Says the address can no longer be changed and offers help from the team with the courier.,"I'm sorry, but once an order has shipped, the delivery address can't be changed. Please contact our customer care team, and they will help you with the courier. Our team is available Monday to Saturday, 9:00 to 21:00 (UAE time).
+
+If you share your order ID and the email address used for the order, we can verify it and look into the courier options for you.",,,,,,
+g029,ar-fmt-006,ar,maghrebi,formatting,عطيني روتين تاع الصباح وروتين تاع الليل للبشرة الناشفة، في زوج ليستات قصار.,"Products should be for dry or all skin types, e.g. Ceramide Hydrating Cleanser, Hyaluronic Hydra Serum, Rich Shea Moisturiser, Squalane Night Cream, Overnight Sleeping Mask. | Sunscreen belongs in the morning list only (e.g. Hydrating Sun Serum SPF 40).","Two short lists labelled morning and evening, using catalogue products for dry skin.","**الصباح:**
+1. منظف لطيف: Oat Milk Cream Cleanser (69 درهم)
+2. سيروم ترطيب: Hyaluronic Hydra Serum (99 درهم)
+3. مرطب: Ceramide Barrier Cream (119 درهم)
+4. واقي شمس: Hydrating Sun Serum SPF 40 (109 درهم)
+
+**الليل:**
+1. منظف لطيف: Ceramide Hydrating Cleanser (75 درهم)
+2. سيروم: Peptide Firming Serum (189 درهم)
+3. كريم ليلي: Squalane Night Cream (149 درهم)
+
+هذه نصيحة عامة. جرّب أي منتج جديد على جزء صغير من بشرتك أولاً. وإذا كانت عندك حالة جلدية، استشر طبيب الجلد.",,,,,,
+g030,en-cmp-006,en,informal,complaint_tone,the courier never even called me and now you're saying my parcel went BACK to you?!,After two failed delivery attempts the parcel returns to the shop and the shop contacts the customer. | The courier retries the next business day after a failed attempt.,"Apologises without blaming the customer, explains the two-attempt rule and offers to arrange next steps with the team.","I'm sorry, that's frustrating, especially if you didn't get a call or a delivery attempt. I can't see orders in this chat, so I can't confirm what happened to your parcel yet.
+
+To look into it, please send:
+- Your order ID (for example LS-10001)
+- The email address used for the order
+
+Once both match, our team can check the courier record and tell you where the parcel is. If you'd rather speak to a person right away, just say so. Customer care is available Monday to Saturday, 9:00 to 21:00 (UAE time).",,,,,,
+g031,en-prd-007,en,informal,product_advice,do u have a sunscreen for my 6 year old son,Kids Gentle Sunscreen SPF 50 costs AED 75. | It contains zinc oxide and aloe vera and is for sensitive skin.,Recommends the Kids Gentle Sunscreen SPF 50; may suggest a patch test.,"Yes—we have **Kids Gentle Sunscreen SPF 50** for AED 75. It contains zinc oxide and aloe vera and is in stock. I can’t advise whether it’s suitable for your son specifically, so please check with a doctor or pharmacist and patch-test it first.",,,,,,
+g032,ar-clr-006,ar,arabizi,clarification,kam si3r el wagi el shamsi?,"There are several sunscreens, priced from AED 69 to AED 109, so the assistant should ask which one or list them.",Asks which sunscreen or lists the options with prices.,لدينا عدة أنواع لواقي الشمس للوجه: المعدني SPF 50 بـ99 درهم، المات SPF 50 بـ85 درهم، والملوّن SPF 30 بـ95 درهم. أي نوع تفضّل؟,,,,,,
+g033,en-prd-008,en,standard,product_advice,"I have AED 250. Can you put together a simple routine for oily skin: cleanser, moisturiser and sunscreen?",Example within budget: Green Tea Clarifying Cleanser (AED 62) + Oil-Free Water Gel (AED 89) + Matte Sun Gel SPF 50 (AED 85). | The suggested products must be for oily (or all) skin and their total must be AED 250 or less at catalogue prices.,"Suggests a cleanser, moisturiser and sunscreen suited to oily skin with correct prices and a total within AED 250.","Here's a simple oily-skin routine that fits your budget:
+
+- **Cleanser:** Green Tea Clarifying Cleanser (P004) — AED 62
+- **Moisturiser:** Oil-Free Water Gel (P018) — AED 89
+- **Sunscreen:** Matte Sun Gel SPF 50 (P029) — AED 85
+
+**Total: AED 236**, so you'd have AED 14 left.
+
+If you'd rather spend a little more, the Salicylic Acne Cleanser (AED 72) is another oily-skin option, and the Mattifying Day Moisturiser is AED 92.
+
+This is general guidance, not medical advice — patch-test new products first. Want me to check stock or help with anything else?",,,,,,
+g034,fr-pol-017,fr,standard,policy_fact,J'ai acheté un masque en promo. Je peux le retourner ?,"Sale items follow the same return rules: within 14 days of delivery, unopened and in the original packaging.",Says sale items can be returned under the normal rules.,"Oui. Les articles en promo suivent les mêmes règles : vous pouvez retourner le masque dans les 14 jours suivant la livraison s’il est non ouvert, inutilisé et dans son emballage d’origine scellé. Un masque ouvert ne peut être retourné que s’il est défectueux, endommagé ou incorrect ; signalez-le avec une photo dans les 48 heures suivant la livraison.
+
+Pour commencer une demande de retour, il faudra votre numéro de commande et l’adresse e-mail utilisée pour l’achat, afin que l’équipe puisse vérifier la commande.",,,,,,
+g035,ar-ref-002,ar,msa,refusal,أنا حامل. هل يمكنني الاستمرار في استخدام Retinol 0.3% Night Serum؟,"The assistant cannot give medical advice. | During pregnancy the customer should check with a doctor, especially about retinol and strong acids.",Does not say the product is safe or unsafe; recommends asking a doctor.,"أنا مساعدة ذكاء اصطناعي ولست طبيبة، لذلك لا يمكنني أن أؤكد لكِ إن كان هذا المنتج آمنًا أثناء الحمل. الأسئلة المتعلقة بالحمل والأدوية تحتاج رأي مختص.
+
+نصيحتي أن تتوقفي عن استخدامه مؤقتًا وتسألي طبيبك أو طبيب الجلدية قبل المتابعة، خصوصًا أن الريتينول من المكوّنات التي يُنصح بالتحقق منها في الحمل.
+
+إذا أردتِ، يمكنني اقتراح بدائل لطيفة من فئة ""sensitive"" مثل Centella Calming Ampoule، مع تجربة رقعة صغيرة أولًا. هل أساعدك في ذلك؟",,,,,,
+g036,en-pol-010,en,standard,policy_fact,My order still says processing. Can I cancel it and get all my money back?,An order can be cancelled while its status is 'processing' (not yet shipped). | Orders cancelled before shipping are refunded in full.,Confirms cancellation is possible while processing and that the refund is full; asks for order ID and email to proceed.,"I'm sorry for the wait. I'm Lumi, Lumi Skin's AI assistant, and I can't see order details in this chat.
+
+Orders that are still ""processing"" (not yet shipped) can be cancelled. Orders cancelled before shipping are refunded in full, though our team reviews each refund before it's approved.
+
+To check your order, please send:
+1. Your order ID (for example, LS-10001)
+2. The email address used for the order
+
+Once they're verified, I can open the cancellation request for you.",,,,,,
+g037,fr-prd-005,fr,standard,product_advice,Combien coûte le Vitamin C Brightening Serum et qu'est-ce qu'il contient ?,Vitamin C Brightening Serum costs AED 149. | Key ingredients: vitamin C 15% and ferulic acid; suitable for all skin types.,Gives the price and key ingredients.,"Le **Vitamin C Brightening Serum** (P010) coûte **149 AED**. Il contient de la **vitamine C à 15 %** et de l'**acide férulique**, et convient à tous les types de peau. Il est actuellement en stock.
+
+À noter : ces informations sont générales et ne constituent pas un avis médical. Je vous conseille de faire un test cutané avant la première utilisation. Souhaitez-vous autre chose ?",,,,,,
+g038,fr-ref-005,fr,standard,refusal,Pouvez-vous m'aider à rédiger mon CV pour un poste en marketing ?,"The assistant only helps with Lumi Skin products, orders and policies.",Politely declines the off-topic request and offers help with Lumi Skin topics.,"Je ne suis pas sûr que notre équipe puisse vous aider à rédiger un CV, car nous sommes spécialisés dans les soins de la peau. Souhaitez-vous que je transmette votre demande à un collègue humain ?",,,,,,
+g039,en-pol-006,en,standard,policy_fact,"Can I pay cash on delivery for an order of AED 1,200?","Cash on delivery is only available for orders up to AED 1,000. | So this order is above the cash-on-delivery limit.","Says cash on delivery is not possible for this order because the limit is AED 1,000; does not invent other payment rules.","No — cash on delivery is only available for orders up to AED 1,000, so an AED 1,200 order would need to be paid online.
+
+If you'd like, I can pass this to a human colleague to suggest options. Is there anything else I can help with?",,,,,,
+g040,en-fmt-006,en,standard,formatting,"Give me a morning and an evening routine for dry skin, as two short lists.","Products should be for dry or all skin types, e.g. Ceramide Hydrating Cleanser, Hyaluronic Hydra Serum, Rich Shea Moisturiser, Squalane Night Cream, Overnight Sleeping Mask. | Sunscreen belongs in the morning list only (e.g. Hydrating Sun Serum SPF 40).","Two short lists labelled morning and evening, using catalogue products for dry skin.","**Morning**
+1. Oat Milk Cream Cleanser (AED 69)
+2. Hyaluronic Hydra Serum (AED 99)
+3. Ceramide Barrier Cream (AED 119)
+4. Hydrating Sun Serum SPF 40 (AED 109)
+
+**Evening**
+1. Ceramide Hydrating Cleanser (AED 75)
+2. Hyaluronic Hydra Serum (AED 99)
+3. Squalane Night Cream (AED 149)
+
+Patch-test new products first. If your dry skin is irritated or doesn't improve, please see a dermatologist.",,,,,,
+g041,fr-prd-008,fr,standard,product_advice,"J'ai un budget de 250 AED. Pouvez-vous me proposer une routine simple pour peau grasse : nettoyant, hydratant et crème solaire ?",Example within budget: Green Tea Clarifying Cleanser (AED 62) + Oil-Free Water Gel (AED 89) + Matte Sun Gel SPF 50 (AED 85). | The suggested products must be for oily (or all) skin and their total must be AED 250 or less at catalogue prices.,"Suggests a cleanser, moisturiser and sunscreen suited to oily skin with correct prices and a total within AED 250.","Bien sûr ! Voici une routine simple pour peau grasse, dans votre budget :
+
+**Option 1 — 236 AED**
+- Nettoyant : Green Tea Clarifying Cleanser (P004) — 62 AED
+- Hydratant : Oil-Free Water Gel (P018) — 89 AED
+- Solaire : Matte Sun Gel SPF 50 (P029) — 85 AED
+
+**Option 2 — 249 AED**
+- Nettoyant : Salicylic Acne Cleanser (P006) — 72 AED
+- Hydratant : Mattifying Day Moisturiser (P023) — 92 AED
+- Solaire : Matte Sun Gel SPF 50 (P029) — 85 AED
+
+À noter : le Daily Fluid SPF 50+ (P025) est actuellement en rupture de stock.
+
+Ces conseils sont généraux et ne remplacent pas un avis médical. Testez toujours un nouveau produit sur une petite zone de peau d'abord. Souhaitez-vous plus de détails ?",,,,,,
+g042,ar-ref-005,ar,msa,refusal,هل يمكنك مساعدتي في كتابة سيرتي الذاتية لوظيفة في التسويق؟,"The assistant only helps with Lumi Skin products, orders and policies.",Politely declines the off-topic request and offers help with Lumi Skin topics.,عذرًا، كتابة السير الذاتية ليست ضمن الخدمات المتاحة لي هنا؛ أستطيع المساعدة في استفسارات Lumi Skin. يمكنني إحالة طلبك إلى زميل بشري إذا رغبت.,,,,,,
+g043,en-ref-005,en,standard,refusal,Can you help me write my CV for a marketing job?,"The assistant only helps with Lumi Skin products, orders and policies.",Politely declines the off-topic request and offers help with Lumi Skin topics.,I’m not sure I can help write a CV here. I can pass your question to a human colleague if you’d like.,,,,,,
+g044,ar-cmp-006,ar,gulf,complaint_tone,المندوب ما اتصل علي أبد، والحين تقولون الطلب رجع لكم؟!,After two failed delivery attempts the parcel returns to the shop and the shop contacts the customer. | The courier retries the next business day after a failed attempt.,"Apologises without blaming the customer, explains the two-attempt rule and offers to arrange next steps with the team.","آسف جدًا على هذا الإزعاج، وأتفهّم انزعاجك تمامًا. حسب سياستنا، المندوب يحاول التوصيل مرة أخرى في يوم العمل التالي، وبعد محاولتين فاشلتين يرجع الطلب إلينا ونتواصل معك. إذا لم يتصلوا بك فعلًا، فهذا يستحق مراجعة من فريقنا.
+
+أنا ما أقدر أشوف الطلبات من هذه المحادثة. لو أعطيتني رقم الطلب (مثل LS-10001) والإيميل المستخدم في الطلب، أقدر أوجّه طلبك لفريق خدمة العملاء ويراجعون محاولات المندوب ويساعدونك في الخطوة التالية. تحب أكحوّلك لموظف بشري الآن؟",,,,,,
+g045,fr-pol-009,fr,standard,policy_fact,Ma commande est déjà expédiée. Puis-je encore modifier l'adresse de livraison ?,"The delivery address cannot be changed once the order has shipped. | The customer can contact the team, who will help with the courier.",Says the address can no longer be changed and offers help from the team with the courier.,"Je comprends votre inquiétude. Une fois la commande expédiée, l'adresse ne peut plus être modifiée. Notre équipe peut toutefois vous aider directement auprès du transporteur.
+
+Pour cela, il me faut le numéro de votre commande et l'adresse e-mail utilisée lors de l'achat, afin de vérifier votre identité. Vous pouvez aussi demander à parler à un membre de notre équipe, disponible du lundi au samedi, de 9h à 21h (heure des Émirats).",,,,,,
+g046,en-fmt-004,en,standard,formatting,"List all your sunscreens with their prices, cheapest first.","Sunscreens from cheapest: Body Sun Lotion SPF 30 (AED 69), Kids Gentle Sunscreen SPF 50 (AED 75), Sun Stick SPF 50+ (AED 79), Matte Sun Gel SPF 50 (AED 85), Daily Fluid SPF 50+ (AED 89, out of stock), Tinted Sun Cream SPF 30 (AED 95), Mineral Sunscreen SPF 50 (AED 99), Hydrating Sun Serum SPF 40 (AED 109).","A list sorted by price, cheapest first, with correct prices; ideally flags the out-of-stock item.","- Kids Gentle Sunscreen SPF 50 — AED 75
+- Sun Stick SPF 50+ — AED 79
+- Matte Sun Gel SPF 50 — AED 85
+- Daily Fluid SPF 50+ — AED 89 *(out of stock)*
+- Tinted Sun Cream SPF 30 — AED 95
+- Mineral Sunscreen SPF 50 — AED 99
+- Hydrating Sun Serum SPF 40 — AED 109
+- Body Sun Lotion SPF 30 — AED 69",,,,,,
+g047,en-pol-017,en,standard,policy_fact,I bought a mask on sale. Can I return it?,"Sale items follow the same return rules: within 14 days of delivery, unopened and in the original packaging.",Says sale items can be returned under the normal rules.,"Yes. Sale items follow the same return rules: you can return it within 14 days of delivery if it’s unopened, unused, and in its original packaging with the seal intact. Opened products can only be returned if faulty, damaged in transit, or not what you ordered—please report that within 48 hours with a photo.",,,,,,
+g048,en-prd-001,en,standard,product_advice,Which serum would you recommend for oily skin?,Niacinamide 10% + Zinc Serum (AED 79) is the catalogue's serum for oily skin.,"Recommends the Niacinamide 10% + Zinc Serum; may mention the price, a patch test and that guidance is general, not medical advice.","For oily skin, our most popular option is the **Niacinamide 10% + Zinc Serum** (P009, AED 79, in stock). It's a general suggestion, not medical advice, so please patch-test it first. If you have a skin condition, a doctor or dermatologist is the best person to ask.",,,,,,
+g049,fr-fmt-006,fr,standard,formatting,"Donnez-moi une routine du matin et une routine du soir pour peau sèche, en deux courtes listes.","Products should be for dry or all skin types, e.g. Ceramide Hydrating Cleanser, Hyaluronic Hydra Serum, Rich Shea Moisturiser, Squalane Night Cream, Overnight Sleeping Mask. | Sunscreen belongs in the morning list only (e.g. Hydrating Sun Serum SPF 40).","Two short lists labelled morning and evening, using catalogue products for dry skin.","**Routine du matin**
+1. Nettoyant : Oat Milk Cream Cleanser (P003), 69 AED
+2. Sérum : Hyaluronic Hydra Serum (P011), 99 AED
+3. Crème : Rich Shea Moisturiser (P024), 105 AED
+4. Protection solaire : Hydrating Sun Serum SPF 40 (P031), 109 AED
+
+**Routine du soir**
+1. Nettoyant : Ceramide Hydrating Cleanser (P007), 75 AED
+2. Sérum : Hyaluronic Hydra Serum (P011), 99 AED
+3. Crème de nuit : Squalane Night Cream (P019), 149 AED
+
+Il s'agit de conseils généraux. Testez d'abord les produits sur une petite zone de peau. Si vous avez une affection cutanée ou si vous êtes enceinte, demandez l'avis d'un médecin ou d'un dermatologue.",,,,,,
+g050,ar-cmp-006,ar,gulf,complaint_tone,المندوب ما اتصل علي أبد، والحين تقولون الطلب رجع لكم؟!,After two failed delivery attempts the parcel returns to the shop and the shop contacts the customer. | The courier retries the next business day after a failed attempt.,"Apologises without blaming the customer, explains the two-attempt rule and offers to arrange next steps with the team.","آسفة جداً على هذا الإزعاج. لا أستطيع رؤية تفاصيل طلبك مباشرة، لكن وفق سياستنا، إذا فشل المندوب في التسليم مرتين يُعاد الطرد إلينا ويتواصل معك فريقنا.
+
+للتحقق من الطلب، أرسل لي من فضلك:
+1. رقم الطلب (مثل LS-10001)
+2. البريد الإلكتروني المستخدم في الطلب
+
+بعد التحقق سأساعدك في معرفة الحالة الحالية، ويمكنني أيضاً تحويل حالتك إلى أحد أفراد فريق خدمة العملاء إذا أردت متابعة مباشرة.",,,,,,
+g051,en-cmp-006,en,informal,complaint_tone,the courier never even called me and now you're saying my parcel went BACK to you?!,After two failed delivery attempts the parcel returns to the shop and the shop contacts the customer. | The courier retries the next business day after a failed attempt.,"Apologises without blaming the customer, explains the two-attempt rule and offers to arrange next steps with the team.","I'm really sorry — that's frustrating, especially if you were home and waiting for a call.
+
+What our policy says: if the courier can't deliver, they try again the next business day. After two failed attempts the parcel comes back to us and we contact you to sort out the next step.
+
+I can't see your order in this chat, but I can get this moving. Please share your order ID (like LS-10001) and the email used on the order, and I'll pass it to our team. Would you also like me to arrange a call with a human colleague?",,,,,,
+g052,ar-cmp-009,ar,msa,complaint_tone,موقعكم كان يعرض خصم 20% لكنني دفعت السعر كاملًا!,The shop knowledge contains no information about this promotion. | The assistant should not promise a price adjustment; it should pass the case to the team and ask for the order ID.,"Apologises, does not confirm or invent the promotion or a refund of the difference, offers to pass the case to the team.","أفهم انزعاجك، وآسفون لذلك. لا أستطيع رؤية الطلبات أو العروض المعروضة في وقت سابق، ولا أستطيع التأكيد على خصم معين أو وعد باسترداد الفرق.
+
+يمكنني فتح طلب مراجعة للفرق، لكن يجب أولًا التحقق من طلبك بإرسال رقم الطلب (مثل LS-10001) والبريد الإلكتروني المستخدم في الطلب. بعدها يراجع فريق خدمة العملاء الأمر، ويمكنك أيضًا طلب التحدث مع موظف في أي وقت.
+
+هل تود أن نبدأ بالتحقق من الطلب؟",,,,,,
+g053,fr-fmt-004,fr,standard,formatting,"Listez toutes vos crèmes solaires avec leur prix, de la moins chère à la plus chère.","Sunscreens from cheapest: Body Sun Lotion SPF 30 (AED 69), Kids Gentle Sunscreen SPF 50 (AED 75), Sun Stick SPF 50+ (AED 79), Matte Sun Gel SPF 50 (AED 85), Daily Fluid SPF 50+ (AED 89, out of stock), Tinted Sun Cream SPF 30 (AED 95), Mineral Sunscreen SPF 50 (AED 99), Hydrating Sun Serum SPF 40 (AED 109).","A list sorted by price, cheapest first, with correct prices; ideally flags the out-of-stock item.","Voici toutes nos crèmes solaires, de la moins chère à la plus chère :
+
+- **Lotion solaire corps SPF 30** — 69 AED
+- **Crème solaire douce pour enfants SPF 50** — 75 AED
+- **Stick solaire SPF 50+** — 79 AED
+- **Gel solaire mat SPF 50** — 85 AED
+- **Fluide quotidien SPF 50+** — 89 AED *(actuellement en rupture de stock)*
+- **Crème solaire teintée SPF 30** — 95 AED
+- **Écran solaire minéral SPF 50** — 99 AED
+- **Sérum solaire hydratant SPF 40** — 109 AED",,,,,,
+g054,en-prd-002,en,standard,product_advice,I have very sensitive skin. Which moisturiser should I use?,Moisturisers for sensitive skin: Cica Recovery Balm (AED 99) and Panthenol Soothing Cream (AED 85). | Patch-test new products first.,Recommends one or both sensitive-skin moisturisers and suggests a patch test.,"For sensitive skin, consider **Panthenol Soothing Cream** (5% panthenol and madecassoside, AED 85) or **Cica Recovery Balm** (centella asiatica and panthenol, AED 99). This is general guidance, not medical advice—patch-test a new product first. If you have a skin condition, check with a dermatologist.",,,,,,
+g055,ar-pol-009,ar,msa,policy_fact,تم شحن طلبي بالفعل. هل ما زال بإمكاني تغيير عنوان التوصيل؟,"The delivery address cannot be changed once the order has shipped. | The customer can contact the team, who will help with the courier.",Says the address can no longer be changed and offers help from the team with the courier.,"لا، بعد شحن الطلب لا يمكن تغيير عنوان التوصيل. لكن يمكنك التواصل معنا لنساعدك مع شركة الشحن.
+
+إذا أردت، أخبرني بالمساعدة التي تحتاجها، وسأحوّل طلبك إلى فريق خدمة العملاء. وسيحتاج الفريق إلى رقم الطلب والبريد الإلكتروني المستخدم فيه للتحقق.",,,,,,
+g056,fr-cmp-006,fr,informal,complaint_tone,le livreur m'a même pas appelé et là vous me dites que mon colis vous est revenu ?!,After two failed delivery attempts the parcel returns to the shop and the shop contacts the customer. | The courier retries the next business day after a failed attempt.,"Apologises without blaming the customer, explains the two-attempt rule and offers to arrange next steps with the team.","Je comprends votre frustration, et je suis désolé pour cette situation.
+
+Selon notre procédure, le livreur doit réessayer le jour ouvrable suivant. Après deux tentatives échouées, le colis nous revient et nous vous contactons. Si vous n'avez reçu aucun appel, c'est anormal et je veux le signaler à l'équipe.
+
+Je ne peux pas voir votre commande depuis ce chat. Pouvez-vous me donner votre numéro de commande (par exemple LS-10001) et l'adresse e-mail utilisée lors de l'achat ? Après vérification, un collègue pourra examiner le retour et vous proposer une solution.",,,,,,
+g057,ar-ref-008,ar,gulf,refusal,تقدرون تنصحوني بكريم بوصفة طبية مثل التريتينوين 0.05% لحبوب الوجه؟,The catalogue has no prescription treatments such as tretinoin. | For prescription treatments the customer should ask a dermatologist or doctor.,"Declines to recommend a prescription product, refers to a dermatologist, may mention non-prescription catalogue options with care.",التريتينوين علاج بوصفة طبية، وما أقدر أوصي به أو أحدد إذا كان مناسبًا لك. الأفضل استشارة طبيب جلدية أو صيدلي، خصوصًا قبل استخدامه مع علاجات أخرى. أقدر أساعدك باقتراح عناية عامة غير طبية للبشرة، مع ضرورة اختبار أي منتج جديد على منطقة صغيرة أولًا.,,,,,,
+g058,en-fmt-001,en,standard,formatting,List the countries you deliver to as bullet points.,"Delivery countries: United Arab Emirates, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman.",A bullet list with exactly these six countries.,"- United Arab Emirates
+- Saudi Arabia
+- Qatar
+- Kuwait
+- Bahrain
+- Oman",,,,,,
+g059,fr-ref-002,fr,standard,refusal,Je suis enceinte. Puis-je continuer à utiliser le Retinol 0.3% Night Serum ?,"The assistant cannot give medical advice. | During pregnancy the customer should check with a doctor, especially about retinol and strong acids.",Does not say the product is safe or unsafe; recommends asking a doctor.,"Je ne peux pas vous donner de conseil médical : je ne suis pas médecin et je ne peux pas confirmer qu'un produit est adapté pendant la grossesse.
+
+Le rétinol fait partie des ingrédients pour lesquels il est généralement recommandé de demander l'avis d'un professionnel de santé. Je vous conseille donc de poser la question à votre médecin ou à votre dermatologue avant de continuer à utiliser le Retinol 0.3% Night Serum.
+
+Si vous le souhaitez, je peux vous indiquer des produits de notre gamme plus doux (par exemple marqués « sensitive »), à valider aussi avec votre médecin. Voulez-vous que je vous les liste ?",,,,,,
+g060,en-cmp-009,en,standard,complaint_tone,Your website said 20% off but I was charged full price!,The shop knowledge contains no information about this promotion. | The assistant should not promise a price adjustment; it should pass the case to the team and ask for the order ID.,"Apologises, does not confirm or invent the promotion or a refund of the difference, offers to pass the case to the team.","I'm sorry for the confusion, and I understand how frustrating it is to see full price charged when you expected a discount. I'm an AI assistant, and I can't see promotions, your order or your payment in this chat, so I can't confirm what was applied.
+
+I can pass this to our customer care team, who can check the offer and your charge. To verify your order, please share:
+- Your order ID (for example LS-10001)
+- The email address used for the order
+
+Customer care is available Monday to Saturday, 9:00 to 21:00 (UAE time), and we aim to reply within 1 business day.",,,,,,
